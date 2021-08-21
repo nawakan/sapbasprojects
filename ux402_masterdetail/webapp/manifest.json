@@ -1,0 +1,141 @@
+{
+  "_version": "1.32.0",
+  "sap.app": {
+    "id": "ux402masterdetail",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "ach": "ach",
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/iwbep/RMTSAMPLEFLIGHT_2",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+		}
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://task",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+    "flexEnabled": false,
+    "rootView": {
+      "viewName": "ux402masterdetail.view.Main",
+      "type": "XML",
+      "async": true,
+      "id": "Main"
+    },
+    "dependencies": {
+      "minUI5Version": "1.66.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ux402masterdetail.i18n.i18n"
+        }
+      },
+			"": {
+				"dataSource": "mainService",
+				"preload": true
+			}
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "ux402masterdetail.view",
+        "controlAggregation": "detailPages",
+        "controlId": "idApp",
+        "clearControlAggregation": false,
+        "bypassed": {"target":["master", "notFound"]}
+      },
+      "routes": [
+        {
+          "name": "master",
+          "pattern": "",
+          "greedy": false,
+          "target": ["master","carrierdetails"]
+        },
+        {
+          "name": "carrierdetails",
+          "pattern": "Carriers/{objectId}",
+          "greedy": false,
+          "target": ["master","carrierdetails"]
+        }
+      ],
+      "targets": {
+        "master": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": true,
+          "viewId": "master",
+          "viewName": "Master",
+          "viewLevel": 1,
+          "controlAggregation": "masterPages"
+        },
+        "carrierdetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": true,
+          "viewId": "carrierdetail",
+          "viewName": "Detail",
+          "viewLevel": 2
+        },
+        "notFound": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": true,
+          "viewId": "notFound",
+          "viewName": "NotFound"
+        },
+        "detailObjectNotFound": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": true,
+          "viewId": "detailObjectNotFound",
+          "viewName": "DetailObjectNotFound"
+        }
+      }
+    }
+  }
+}

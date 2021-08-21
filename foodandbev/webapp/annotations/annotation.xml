@@ -1,0 +1,176 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <!-- Begin of Define Alias Lib from quickfix -->
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <!-- End of Define Alias Lib from quickfix -->
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/V2/Northwind/Northwind.svc/$metadata">
+        <edmx:Include Namespace="NorthwindModel"/>
+        <edmx:Include Namespace="ODataWeb.Northwind.Model"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <!-- Begin of กำหนด Feature ต่างๆของ List ให้เลือก Target Kind ที่เป็น EntityContainer -->
+            <!-- แล้ว / ตามด้วย EnitySet ของ List -->
+            <Annotations Target="ODataWeb.Northwind.Model.NorthwindEntities/Products">
+                <!-- ปิด Application Search ด้านบนหัวของ App เพราะ OData v2 ไม่รองรับอยู่แล้ว -->
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <!-- ปิดปุ่ม Delete -->
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <!-- ปิดปุ่ม Insert -->
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <!-- Begin of Add Label to Field -->
+            <Annotations Target="NorthwindModel.Product/ProductName">
+                <Annotation Term="Common.Label" String="{@i18n>product}"/>
+                <!-- Begin of กำหนด Value Help ให้ฟิลด์ -->
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <!-- เนื่องจากอยู่ใน OData เดียวกัน เพราะ 1 annotation file = 1 OData อยู่แล้ว -->
+                        <!-- เลยสามารถใส่ Entity Set ที่เก็บ Product List ได้เลย -->
+                        <!-- วิธีการ Link ไปที่ metadata.xml ให้ ctrl+click ที่ Target ตรงไหนก็ได้ในนี้ -->
+                        <PropertyValue Property="CollectionPath" String="Alphabetical_list_of_products"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <!-- ฟิลด์ที่ใช้จาก entity set ของ list คือ Alphabetical_list_of_products/ProductName -->
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProductName"/>
+                                    <!-- ฟิลด์ที่เอามา compare ใน listหลัก คือ Product/ProductName -->
+                                    <PropertyValue Property="ValueListProperty" String="ProductName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- End of กำหนด Value Help ให้ฟิลด์ -->
+                <!-- กำหนดให้เป็น Dropdown ซึ่ง Default true เลยใส่แค่นี้ (ุถ้าไม่มี anno นี้จะเป็น search help ปกติ) -->
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <!-- End of End Label to Field -->
+            <!-- Begin of set ProductName ให้เป็น Text ของ ProductID -->
+            <Annotations Target="NorthwindModel.Product/ProductID">
+                <Annotation Term="Common.Text" Path="ProductName"/>
+            </Annotations>
+            <!-- End of set ProductName ให้เป็น Text ของ ProductID -->
+            <Annotations Target="NorthwindModel.Product">
+                <!-- Begin of set Key to Bold -->
+                <Annotation Term="Common.SemanticKey" >
+                    <Collection>
+                        <PropertyPath>ProductID</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <!-- End of set Key to Bold -->
+                <!-- Begin of Selection -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ProductName</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <!-- End of Selection -->
+                <!-- Begin of Header Info -->
+                <Annotation Term="UI.HeaderInfo" >
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>product}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>products}"/>
+                    </Record>
+                </Annotation>
+                <!-- End of Header Info -->
+                <!-- Begin of เตรียม Datapoint เพื่อไปใช้ทำอย่างอื่นต่อ -->
+                <Annotation Term="UI.DataPoint" Qualifier="StockQty">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Value" Path="UnitsInStock"/>
+                        <!-- เพิ่มการใส่สี --> 
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="UI.CriticalityCalculationType">
+                                <!-- UI.ImprovementDirectionType/Maximize คือ ยิ่งมากยิ่งมองว่าดี -->
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <!-- ถ้า <= ReorderLevel จะเป็น critical สีแดง -->
+                                <PropertyValue Property="DeviationRangeLowValue" Path="ReorderLevel"/>
+                                <!-- ถ้า <= ReorderLevel จะเป็น neutral ปกติ (ใส่เฉยๆ เพราะจะโดน critical อันบนทับ) -->
+                                <PropertyValue Property="ToleranceRangeLowValue" Path="ReorderLevel"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- End of เตรียม Datapoint เพื่อไปใช้ทำอย่างอื่นต่อ -->
+                <!-- Begin of Chart จะเอาไปใส่ใน List -->
+                <Annotation Term="UI.Chart" Qualifier="StockQty">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bullet"/>
+                        <!-- Begin of เพิ่ม Measure -->
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>UnitsInStock</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!-- เพิ่มสีจาก criticality โดย link จาก DataPoint -->
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#StockQty"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <!-- End of เพิ่ม Measure -->
+                    </Record>
+                </Annotation>
+                <!-- End of Chart จะเอาไปใส่ใน List -->
+                <!-- Begin of List -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ProductID"/>
+                            <PropertyValue Property="Label" String="{@i18n>product}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="QuantityPerUnit"/>
+                            <PropertyValue Property="Label" String="{@i18n>quantityPerUnit}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReorderLevel"/>
+                            <PropertyValue Property="Label" String="{@i18n>reorderLevel}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UnitsInStock"/>
+                            <PropertyValue Property="Label" String="{@i18n>unitsInStock}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <!-- Begin of เอา Chart มาทำเป็น Column ใน List -->
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Chart#StockQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>unitsInStock}"/>
+                        </Record>
+                        <!-- End of เอา Chart มาทำเป็น Column ใน List -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UnitPrice"/>
+                            <PropertyValue Property="Label" String="{@i18n>unitPrice}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- End of List -->
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

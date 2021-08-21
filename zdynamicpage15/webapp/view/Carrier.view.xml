@@ -1,0 +1,220 @@
+<mvc:View xmlns:f="sap.f"
+    controllerName="zdynamicpage15.controller.Carrier"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true" xmlns:layout="sap.ui.layout"
+    xmlns:semantic="sap.f.semantic"
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap">
+
+    <!-- DYNAMIC PAGE -->
+	<!-- <f:DynamicPage id="dynamicPageCarrierId" 
+    headerExpanded="true" toggleHeaderOnTitleClick="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{Carrname}"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Text text="{Carrid}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Text text="{travel>Carrid}"/>
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <FlexBox alignItems="Start" justifyContent="SpaceBetween" >
+                        <items>
+                            <layout:HorizontalLayout allowWrapping="true">
+                                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                                    <ObjectAttribute title="{i18n>currLabelText}" text="{Currcode}"/>
+                                    <ObjectAttribute title="{i18n>urlLabelText}" text="{Url}"/>
+                                </layout:VerticalLayout>
+                            </layout:HorizontalLayout>
+                        </items>
+                    </FlexBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+    </f:DynamicPage> -->
+    <!-- DYNAMIC PAGE -->
+
+    <!-- SEMANTIC PAGE -->
+    <!-- <semantic:SemanticPage id="semanticPageCarrierId"
+    headerExpanded="true" toggleHeaderOnTitleClick="true">
+        <semantic:titleHeading>
+            <Title text="{Carrname}"/>
+        </semantic:titleHeading>
+        <semantic:headerContent>
+            <FlexBox alignItems="Start" justifyContent="SpaceBetween" >
+                <items>
+                    <layout:HorizontalLayout allowWrapping="true">
+                        <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                            <ObjectAttribute title="{i18n>currLabelText}" text="{Currcode}"/>
+                            <ObjectAttribute title="{i18n>urlLabelText}" text="{Url}"/>
+                        </layout:VerticalLayout>
+                    </layout:HorizontalLayout>
+                </items>
+            </FlexBox>
+        </semantic:headerContent>
+        <semantic:closeAction>
+            <semantic:CloseAction id="idCloseAction" press="onCloseDetailPress"/>
+        </semantic:closeAction>
+        <semantic:fullScreenAction>
+            <semantic:FullScreenAction id="idEnterFullScreen"
+            visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonInfo/midColumn/fullScreen}}" 
+            press="onToggleFullScreen"/>
+        </semantic:fullScreenAction>
+        <semantic:exitFullScreenAction>
+            <semantic:ExitFullScreenAction id="idExitFullScreen"
+            visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonInfo/midColumn/fullScreen}}" 
+            press="onToggleFullScreen"/>
+        </semantic:exitFullScreenAction>
+    </semantic:SemanticPage> -->
+    <!-- SEMANTIC PAGE -->
+
+    <uxap:ObjectPageLayout id="dynamicPageId" showTitleInHeaderContent="true"
+    alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false"
+    headerContentPinnable="true" isChildPage="true" enableLazyLoading="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle >
+                <uxap:expandedHeading>
+                    <Title text="{Carrname}" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{Carrname}" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <FlexBox alignItems="Start" justifyContent="SpaceBetween" id="idCarrierDetails">
+                        <items>
+                            <layout:HorizontalLayout allowWrapping="true">
+                                <layout:VerticalLayout class="sapUiMediumMarginEnd" >
+                                    <ObjectAttribute title="Currency" text="{Currcode}"/>
+                                    <ObjectAttribute title="Url" text="{Url}"/>
+                                </layout:VerticalLayout>
+                            </layout:HorizontalLayout>
+                        </items>
+                    </FlexBox>
+                    <core:ExtensionPoint name="ux410_extension"/>
+                    <Button text="Carrier Data" press="onShowCarrierData" />
+                </uxap:expandedContent>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen"
+                    tooltip="Enter Full Screen Mode" id="idExitFullScreen"
+                    visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen} }"
+                    press="onToggleFullScreen" />
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen"
+                    tooltip="Enter Full Screen Mode" 
+                    visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen} }"
+                    press="onToggleFullScreen" />
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline"
+                    tooltip="Close Column" press="onCloseDetailPress" />
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Flights" >
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection >
+                        <uxap:blocks>
+                            <Table id="idFlights" items="{ path:'to_Flight', sorter: { path: 'Carrid' } }"
+                            growing="true" growingThreshold="10" visible="true">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <Title text="Flights" level="H2" />
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="Carrier"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Flight No."/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+                                        <Text text="Date"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                        <Text text="Max Seats"/>
+                                    </Column>
+                                    <Column hAlign="Right">
+                                        <Text text="Occ. Seats"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <ObjectIdentifier title="{Carrid}" text="{Carrid}"/>
+                                            <Text text="{Connid}"/>
+                                            <Text text="{ path:'Fldate', type:'sap.ui.model.type.Date' }"/>
+                                            <Text text="{Seatsmax}"/>
+                                            <Text text="{Seatsocc}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection >
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection  title="Connections" >
+                        <uxap:blocks>
+                            <Table id="idConnections" items="{ path:'to_Connection', sorter: { path: 'Connid' } }"
+                            growing="true" growingThreshold="10" visible="true">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <Title text="Connections" level="H2" />
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="Carrier"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Flight No."/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="City From"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="City To"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                        <Text text="Airp From"/>
+                                    </Column>
+                                    <Column hAlign="Right">
+                                        <Text text="Airp To"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <ObjectIdentifier title="{Carrid}" text="{Carrid}"/>
+                                            <Text text="{Connid}"/>
+                                            <Text text="{Cityfrom}"/>
+                                            <Text text="{Cityto}"/>
+                                            <Text text="{Airpfrom}"/>
+                                            <Text text="{Airpto}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+
+</mvc:View>

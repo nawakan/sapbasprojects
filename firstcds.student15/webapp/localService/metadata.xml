@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZCDS_UX403_SADL_15_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SEPM_I_AddressType" sap:label="EPM Demo: Address" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressUUID"/>
+                </Key>
+                <Property Name="AddressUUID" Type="Edm.Guid" Nullable="false" sap:label="Address UUID" sap:quickinfo="EPM: Internal Identifier of Address, universally unique"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City" sap:quickinfo="EPM: City"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" sap:quickinfo="EPM: Postal Code"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street" sap:quickinfo="EPM: Street"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Building" sap:quickinfo="EPM: Building"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="to_Country/Country_Text" sap:label="Country" sap:quickinfo="EPM: Country Code" sap:value-list="standard"/>
+                <Property Name="AddressType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:text="to_Type/AddressType_Text" sap:label="Address Type" sap:quickinfo="EPM: Address Type" sap:value-list="standard"/>
+                <Property Name="AddressValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid From" sap:quickinfo="EPM: Start date of Validity"/>
+                <Property Name="AddressValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until" sap:quickinfo="EPM: End date of Validity"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Latitude" sap:quickinfo="EPM: Latitude"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Longitude" sap:quickinfo="EPM: Longitude"/>
+                <NavigationProperty Name="to_Country" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_263B9D575EAAA0B413136EB4B01ECB1E" FromRole="FromRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E" ToRole="ToRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E"/>
+                <NavigationProperty Name="to_Type" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_6D81958383B4EDC8379824CE8A2D6EE3" FromRole="FromRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3" ToRole="ToRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_AddressTypeType" sap:label="EPM Demo: Address Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressType"/>
+                </Key>
+                <Property Name="AddressType" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:text="AddressType_Text" sap:label="Address Type" sap:quickinfo="EPM: Address Type"/>
+                <Property Name="AddressType_Text" Type="Edm.String" MaxLength="60" sap:label="Address Type" sap:quickinfo="EPM: Address Type Name" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_BusinessPartnerType" sap:label="EPM Demo: Business Partner" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartnerUUID"/>
+                </Key>
+                <Property Name="BusinessPartnerUUID" Type="Edm.Guid" Nullable="false" sap:label="Busi. Partner UUID" sap:quickinfo="EPM: Business Partner Key"/>
+                <Property Name="BusinessPartner" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="CompanyName" sap:label="Business Partner ID" sap:quickinfo="EPM: Business Partner ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerRole" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="to_Role/BusinessPartnerRole_Text" sap:label="Bus. Part. Role" sap:quickinfo="EPM: Business Partner Role" sap:value-list="standard"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:text="to_Currency/Currency_Text" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="LegalForm" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Legal Form" sap:quickinfo="EPM: Legal Form of Business Partner"/>
+                <Property Name="AddressUUID" Type="Edm.Guid" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:value-list="standard"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:label="Fax" sap:quickinfo="EPM: Fax Number" sap:semantics="tel"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="URL" Type="Edm.String" sap:label="URI" sap:quickinfo="EPM: Web Address"/>
+                <Property Name="CreatedByUser" Type="Edm.Guid" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created At" sap:quickinfo="EPM: Created At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.Guid" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Changed At" sap:quickinfo="EPM: Changed At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BuPaApprovalStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Approval Status" sap:quickinfo="EPM: Business Partner Approval Status"/>
+                <NavigationProperty Name="to_Address" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_E9F26AB885E3B8FA20D0F52332AB30F6" FromRole="FromRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6" ToRole="ToRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6"/>
+                <NavigationProperty Name="to_CreatedByUser" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_46BEBA39A0DB3ACC569346990766D96B" FromRole="FromRole_assoc_46BEBA39A0DB3ACC569346990766D96B" ToRole="ToRole_assoc_46BEBA39A0DB3ACC569346990766D96B"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_F961DB220C59DA50B2D83E31148D94AB" FromRole="FromRole_assoc_F961DB220C59DA50B2D83E31148D94AB" ToRole="ToRole_assoc_F961DB220C59DA50B2D83E31148D94AB"/>
+                <NavigationProperty Name="to_LastChangedByUser" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_1DF6CC61A8E02717497AA77E2161D487" FromRole="FromRole_assoc_1DF6CC61A8E02717497AA77E2161D487" ToRole="ToRole_assoc_1DF6CC61A8E02717497AA77E2161D487"/>
+                <NavigationProperty Name="to_Role" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_CA32E6D91FF86268CEC79C1898E8C302" FromRole="FromRole_assoc_CA32E6D91FF86268CEC79C1898E8C302" ToRole="ToRole_assoc_CA32E6D91FF86268CEC79C1898E8C302"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_BusinessPartnerRoleType" sap:label="EPM Demo: Business Partner Role" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartnerRole"/>
+                </Key>
+                <Property Name="BusinessPartnerRole" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:text="BusinessPartnerRole_Text" sap:label="Bus. Part. Role" sap:quickinfo="EPM: Business Partner Role"/>
+                <Property Name="BusinessPartnerRole_Text" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_CompanyType" sap:label="EPM Demo: Company" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyUUID"/>
+                </Key>
+                <Property Name="CompanyUUID" Type="Edm.Guid" Nullable="false" sap:text="CompanyName" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="AddressUUID" Type="Edm.Guid" sap:label="Address UUID" sap:quickinfo="EPM: Internal Identifier of Address, universally unique"/>
+                <Property Name="CompanyCurrency" Type="Edm.String" MaxLength="5" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_CountryType" sap:label="EPM Demo: Country" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Country"/>
+                </Key>
+                <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:text="Country_Text" sap:label="Country Key"/>
+                <Property Name="Country_Text" Type="Edm.String" MaxLength="50" sap:label="Country Name" sap:quickinfo="Country Name (Max. 50 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CountryTwoLetterISOCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="ISO code" sap:quickinfo="Country ISO code"/>
+                <Property Name="CountryThreeLetterISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO Code 3 Char" sap:quickinfo="ISO country code 3 char"/>
+                <Property Name="CountryThreeDigitISOCode" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="ISO Code Num. 3" sap:quickinfo="ISO Country Code Numeric 3-Characters"/>
+                <Property Name="VehicleCountryKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Vehicle country key"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Language Key"/>
+                <Property Name="IsEuropeanUnionMember" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="EU Member" sap:quickinfo="Indicator: European Union Member?"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_CurrencyType" sap:label="EPM Demo: Currency" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Currency"/>
+                </Key>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Currency_Text" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="Currency_Text" Type="Edm.String" MaxLength="15" sap:label="Short text" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CurrencyISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO code" sap:quickinfo="ISO currency code"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_EmployeeType" sap:semantics="aggregate" sap:label="EPM Demo: Employee" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EmployeeUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="CompanyUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:text="to_Company/CompanyName" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:value-list="standard"/>
+                <Property Name="Employee" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="EPM: Employee ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:label="First Name" sap:quickinfo="EPM: First Name"/>
+                <Property Name="MiddleName" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:label="Middle Name" sap:quickinfo="EPM: Middle Name"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:label="Last Name" sap:quickinfo="EPM: Last Name"/>
+                <Property Name="Initials" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Initials" sap:quickinfo="EPM: Initials"/>
+                <Property Name="GenderCode" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="to_GenderCode/GenderCode_Text" sap:label="Gender" sap:quickinfo="EPM: Gender" sap:value-list="standard"/>
+                <Property Name="PreferredLanguage" Type="Edm.String" MaxLength="2" sap:aggregation-role="dimension" sap:text="to_PreferredLanguage/Language_Text" sap:label="Language Key" sap:value-list="standard"/>
+                <Property Name="EmployeePictureURL" Type="Edm.String" MaxLength="255" sap:aggregation-role="dimension" sap:label="Pic URI" sap:quickinfo="EPM: URL of Product Image"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:aggregation-role="dimension" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:aggregation-role="dimension" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="SystemUser" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="User Name"/>
+                <Property Name="HomeAddressUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:value-list="standard"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="81" sap:aggregation-role="dimension" sap:label="Full Name" sap:quickinfo="EPM: Full Name"/>
+                <Property Name="EmploymentStartDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Valid From" sap:quickinfo="EPM: Start date of Validity"/>
+                <Property Name="EmploymentEndDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Valid Until" sap:quickinfo="EPM: End date of Validity"/>
+                <Property Name="SalaryCurrency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:text="to_SalaryCurrency/Currency_Text" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="SalaryAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:unit="SalaryCurrency" sap:label="Salary" sap:quickinfo="EPM: Salary" sap:filterable="false"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:aggregation-role="dimension" sap:label="Mobile Phone Number" sap:quickinfo="EPM: Mobile Phone Number"/>
+                <NavigationProperty Name="to_Company" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_FF6EF5066846DD2F86B93FB3A89AA244" FromRole="FromRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244" ToRole="ToRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244"/>
+                <NavigationProperty Name="to_GenderCode" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_9344BA902A8189D07CF7D2C6C0DC30C0" FromRole="FromRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0" ToRole="ToRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0"/>
+                <NavigationProperty Name="to_HomeAddress" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_7B2484CF86405F2D835BF42F07CCB328" FromRole="FromRole_assoc_7B2484CF86405F2D835BF42F07CCB328" ToRole="ToRole_assoc_7B2484CF86405F2D835BF42F07CCB328"/>
+                <NavigationProperty Name="to_PreferredLanguage" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_88F1709DD32447CF97562E38A560183A" FromRole="FromRole_assoc_88F1709DD32447CF97562E38A560183A" ToRole="ToRole_assoc_88F1709DD32447CF97562E38A560183A"/>
+                <NavigationProperty Name="to_SalaryCurrency" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_63E90C5987139A1DA3C5A775DD1550F8" FromRole="FromRole_assoc_63E90C5987139A1DA3C5A775DD1550F8" ToRole="ToRole_assoc_63E90C5987139A1DA3C5A775DD1550F8"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_GenderCodeType" sap:label="EPM Demo: Gender Code" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GenderCode"/>
+                </Key>
+                <Property Name="GenderCode" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:text="GenderCode_Text" sap:label="Gender" sap:quickinfo="EPM: Gender"/>
+                <Property Name="GenderCode_Text" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_LanguageType" sap:label="EPM Demo: Language" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="Language_Text" sap:label="Language Key"/>
+                <Property Name="Language_Text" Type="Edm.String" MaxLength="16" sap:label="Name" sap:quickinfo="Name of Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LanguageISOCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Lang. (ISO 639)" sap:quickinfo="2-Character SAP Language Code"/>
+            </EntityType>
+            <EntityType Name="ZCDS_UX403_SADL_15Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrderID"/>
+                </Key>
+                <Property Name="SalesOrderID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerID" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Business Partner ID" sap:quickinfo="EPM: Business Partner ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="GrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="P9CC67947F24DF78CA54EA8DE3DD32E2E" sap:label="Gross Amount" sap:quickinfo="EPM: Total Gross Amount"/>
+                <Property Name="LastChangedByUser" Type="Edm.Guid" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerUUID" Type="Edm.Guid" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key" sap:value-list="standard"/>
+                <NavigationProperty Name="to_Customer" Relationship="ZCDS_UX403_SADL_15_CDS.assoc_7F3E1762325A578272C20C71C5792527" FromRole="FromRole_assoc_7F3E1762325A578272C20C71C5792527" ToRole="ToRole_assoc_7F3E1762325A578272C20C71C5792527"/>
+            </EntityType>
+            <Association Name="assoc_FF6EF5066846DD2F86B93FB3A89AA244" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_CompanyType" Multiplicity="0..1" Role="ToRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244">
+                        <PropertyRef Name="CompanyUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244">
+                        <PropertyRef Name="CompanyUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_9344BA902A8189D07CF7D2C6C0DC30C0" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_GenderCodeType" Multiplicity="0..1" Role="ToRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0">
+                        <PropertyRef Name="GenderCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0">
+                        <PropertyRef Name="GenderCode"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_7B2484CF86405F2D835BF42F07CCB328" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_7B2484CF86405F2D835BF42F07CCB328"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType" Multiplicity="0..1" Role="ToRole_assoc_7B2484CF86405F2D835BF42F07CCB328"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_7B2484CF86405F2D835BF42F07CCB328">
+                        <PropertyRef Name="AddressUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_7B2484CF86405F2D835BF42F07CCB328">
+                        <PropertyRef Name="HomeAddressUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_88F1709DD32447CF97562E38A560183A" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_88F1709DD32447CF97562E38A560183A"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_LanguageType" Multiplicity="0..1" Role="ToRole_assoc_88F1709DD32447CF97562E38A560183A"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_88F1709DD32447CF97562E38A560183A">
+                        <PropertyRef Name="Language"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_88F1709DD32447CF97562E38A560183A">
+                        <PropertyRef Name="PreferredLanguage"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_63E90C5987139A1DA3C5A775DD1550F8" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_63E90C5987139A1DA3C5A775DD1550F8"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_63E90C5987139A1DA3C5A775DD1550F8"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_63E90C5987139A1DA3C5A775DD1550F8">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_63E90C5987139A1DA3C5A775DD1550F8">
+                        <PropertyRef Name="SalaryCurrency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_7F3E1762325A578272C20C71C5792527" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15Type" Multiplicity="1" Role="FromRole_assoc_7F3E1762325A578272C20C71C5792527"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="0..1" Role="ToRole_assoc_7F3E1762325A578272C20C71C5792527"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_7F3E1762325A578272C20C71C5792527">
+                        <PropertyRef Name="BusinessPartnerUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_7F3E1762325A578272C20C71C5792527">
+                        <PropertyRef Name="CustomerUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_E9F26AB885E3B8FA20D0F52332AB30F6" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType" Multiplicity="0..1" Role="ToRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6">
+                        <PropertyRef Name="AddressUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6">
+                        <PropertyRef Name="AddressUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_46BEBA39A0DB3ACC569346990766D96B" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_46BEBA39A0DB3ACC569346990766D96B"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="0..1" Role="ToRole_assoc_46BEBA39A0DB3ACC569346990766D96B"/>
+            </Association>
+            <Association Name="assoc_F961DB220C59DA50B2D83E31148D94AB" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_F961DB220C59DA50B2D83E31148D94AB"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_F961DB220C59DA50B2D83E31148D94AB"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_F961DB220C59DA50B2D83E31148D94AB">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_F961DB220C59DA50B2D83E31148D94AB">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_1DF6CC61A8E02717497AA77E2161D487" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_1DF6CC61A8E02717497AA77E2161D487"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" Multiplicity="0..1" Role="ToRole_assoc_1DF6CC61A8E02717497AA77E2161D487"/>
+            </Association>
+            <Association Name="assoc_CA32E6D91FF86268CEC79C1898E8C302" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_CA32E6D91FF86268CEC79C1898E8C302"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerRoleType" Multiplicity="0..1" Role="ToRole_assoc_CA32E6D91FF86268CEC79C1898E8C302"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_CA32E6D91FF86268CEC79C1898E8C302">
+                        <PropertyRef Name="BusinessPartnerRole"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_CA32E6D91FF86268CEC79C1898E8C302">
+                        <PropertyRef Name="BusinessPartnerRole"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_6D81958383B4EDC8379824CE8A2D6EE3" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType" Multiplicity="1" Role="FromRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressTypeType" Multiplicity="0..1" Role="ToRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3">
+                        <PropertyRef Name="AddressType"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3">
+                        <PropertyRef Name="AddressType"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_263B9D575EAAA0B413136EB4B01ECB1E" sap:content-version="1">
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType" Multiplicity="1" Role="FromRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E"/>
+                <End Type="ZCDS_UX403_SADL_15_CDS.SEPM_I_CountryType" Multiplicity="0..1" Role="ToRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E">
+                        <PropertyRef Name="Country"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E">
+                        <PropertyRef Name="Country"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZCDS_UX403_SADL_15_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SEPM_I_Address" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_AddressType" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_BusinessPartner" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_BusinessPartnerRole" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerRoleType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Company" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_CompanyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Country" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_CountryType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Currency" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Employee" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_GenderCode" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_GenderCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Language" EntityType="ZCDS_UX403_SADL_15_CDS.SEPM_I_LanguageType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_UX403_SADL_15" EntityType="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_FF6EF5066846DD2F86B93FB3A89AA244" Association="ZCDS_UX403_SADL_15_CDS.assoc_FF6EF5066846DD2F86B93FB3A89AA244" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Employee" Role="FromRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244"/>
+                    <End EntitySet="SEPM_I_Company" Role="ToRole_assoc_FF6EF5066846DD2F86B93FB3A89AA244"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_6D81958383B4EDC8379824CE8A2D6EE3" Association="ZCDS_UX403_SADL_15_CDS.assoc_6D81958383B4EDC8379824CE8A2D6EE3" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Address" Role="FromRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3"/>
+                    <End EntitySet="SEPM_I_AddressType" Role="ToRole_assoc_6D81958383B4EDC8379824CE8A2D6EE3"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_263B9D575EAAA0B413136EB4B01ECB1E" Association="ZCDS_UX403_SADL_15_CDS.assoc_263B9D575EAAA0B413136EB4B01ECB1E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Address" Role="FromRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E"/>
+                    <End EntitySet="SEPM_I_Country" Role="ToRole_assoc_263B9D575EAAA0B413136EB4B01ECB1E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_88F1709DD32447CF97562E38A560183A" Association="ZCDS_UX403_SADL_15_CDS.assoc_88F1709DD32447CF97562E38A560183A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Employee" Role="FromRole_assoc_88F1709DD32447CF97562E38A560183A"/>
+                    <End EntitySet="SEPM_I_Language" Role="ToRole_assoc_88F1709DD32447CF97562E38A560183A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E9F26AB885E3B8FA20D0F52332AB30F6" Association="ZCDS_UX403_SADL_15_CDS.assoc_E9F26AB885E3B8FA20D0F52332AB30F6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="FromRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6"/>
+                    <End EntitySet="SEPM_I_Address" Role="ToRole_assoc_E9F26AB885E3B8FA20D0F52332AB30F6"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_46BEBA39A0DB3ACC569346990766D96B" Association="ZCDS_UX403_SADL_15_CDS.assoc_46BEBA39A0DB3ACC569346990766D96B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="FromRole_assoc_46BEBA39A0DB3ACC569346990766D96B"/>
+                    <End EntitySet="SEPM_I_Employee" Role="ToRole_assoc_46BEBA39A0DB3ACC569346990766D96B"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_63E90C5987139A1DA3C5A775DD1550F8" Association="ZCDS_UX403_SADL_15_CDS.assoc_63E90C5987139A1DA3C5A775DD1550F8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Employee" Role="FromRole_assoc_63E90C5987139A1DA3C5A775DD1550F8"/>
+                    <End EntitySet="SEPM_I_Currency" Role="ToRole_assoc_63E90C5987139A1DA3C5A775DD1550F8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_9344BA902A8189D07CF7D2C6C0DC30C0" Association="ZCDS_UX403_SADL_15_CDS.assoc_9344BA902A8189D07CF7D2C6C0DC30C0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Employee" Role="FromRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0"/>
+                    <End EntitySet="SEPM_I_GenderCode" Role="ToRole_assoc_9344BA902A8189D07CF7D2C6C0DC30C0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7B2484CF86405F2D835BF42F07CCB328" Association="ZCDS_UX403_SADL_15_CDS.assoc_7B2484CF86405F2D835BF42F07CCB328" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Employee" Role="FromRole_assoc_7B2484CF86405F2D835BF42F07CCB328"/>
+                    <End EntitySet="SEPM_I_Address" Role="ToRole_assoc_7B2484CF86405F2D835BF42F07CCB328"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7F3E1762325A578272C20C71C5792527" Association="ZCDS_UX403_SADL_15_CDS.assoc_7F3E1762325A578272C20C71C5792527" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_UX403_SADL_15" Role="FromRole_assoc_7F3E1762325A578272C20C71C5792527"/>
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="ToRole_assoc_7F3E1762325A578272C20C71C5792527"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_1DF6CC61A8E02717497AA77E2161D487" Association="ZCDS_UX403_SADL_15_CDS.assoc_1DF6CC61A8E02717497AA77E2161D487" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="FromRole_assoc_1DF6CC61A8E02717497AA77E2161D487"/>
+                    <End EntitySet="SEPM_I_Employee" Role="ToRole_assoc_1DF6CC61A8E02717497AA77E2161D487"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_CA32E6D91FF86268CEC79C1898E8C302" Association="ZCDS_UX403_SADL_15_CDS.assoc_CA32E6D91FF86268CEC79C1898E8C302" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="FromRole_assoc_CA32E6D91FF86268CEC79C1898E8C302"/>
+                    <End EntitySet="SEPM_I_BusinessPartnerRole" Role="ToRole_assoc_CA32E6D91FF86268CEC79C1898E8C302"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_F961DB220C59DA50B2D83E31148D94AB" Association="ZCDS_UX403_SADL_15_CDS.assoc_F961DB220C59DA50B2D83E31148D94AB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_BusinessPartner" Role="FromRole_assoc_F961DB220C59DA50B2D83E31148D94AB"/>
+                    <End EntitySet="SEPM_I_Currency" Role="ToRole_assoc_F961DB220C59DA50B2D83E31148D94AB"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType/Country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Country"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Country"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Country"/>
+                                    <PropertyValue Property="ValueListProperty" String="Country"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Country_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_AddressType/AddressType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Address Type"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_AddressType"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AddressType"/>
+                                    <PropertyValue Property="ValueListProperty" String="AddressType"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AddressType_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType/BusinessPartnerRole" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Business Partner Role"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_BusinessPartnerRole"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BusinessPartnerRole"/>
+                                    <PropertyValue Property="ValueListProperty" String="BusinessPartnerRole"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="BusinessPartnerRole_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Currency"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType/AddressUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Address"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Address"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AddressUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="AddressUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType/CreatedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Employee"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Employee"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CreatedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="EmployeeUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType/LastChangedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Employee"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Employee"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LastChangedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="EmployeeUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType/CompanyUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Company"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Company"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyUUID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType/GenderCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Gender Code"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_GenderCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GenderCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="GenderCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GenderCode_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType/PreferredLanguage" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Language"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Language"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="PreferredLanguage"/>
+                                    <PropertyValue Property="ValueListProperty" String="Language"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Language_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType/HomeAddressUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Address"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Address"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="HomeAddressUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="AddressUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_EmployeeType/SalaryCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Currency"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SalaryCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15Type/CustomerUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Business Partner"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_BusinessPartner"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CustomerUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="BusinessPartnerUUID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LegalForm"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15_CDS_Entities/SEPM_I_BusinessPartner" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="URL"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>URL</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.ZCDS_UX403_SADL_15_CDS_Entities/SEPM_I_Employee" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>SalaryAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_SADL_15_CDS.SEPM_I_BusinessPartnerType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>BusinessPartner</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://s4d.virtual:8000/sap/opu/odata/sap/ZCDS_UX403_SADL_15_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://s4d.virtual:8000/sap/opu/odata/sap/ZCDS_UX403_SADL_15_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

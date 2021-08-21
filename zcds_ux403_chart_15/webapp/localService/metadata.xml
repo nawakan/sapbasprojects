@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://s4d.virtual:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZCDS_UX403_CHART_15_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZCDS_UX403_CHART_15Type" sap:label="UX403 chart in object page" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Product"/>
+                </Key>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Product ID" sap:quickinfo="EPM: Product ID"/>
+                <Property Name="MainProductCategory" Type="Edm.String" MaxLength="40" sap:label="Main Category" sap:quickinfo="EPM: Product Main Category"/>
+                <Property Name="ProductCategory" Type="Edm.String" MaxLength="40" sap:label="Category" sap:quickinfo="EPM: Product Category"/>
+                <Property Name="ProductType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Type Code" sap:quickinfo="EPM: Product Type Code"/>
+                <NavigationProperty Name="to_Product" Relationship="ZCDS_UX403_CHART_15_CDS.assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC" FromRole="FromRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC" ToRole="ToRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC"/>
+            </EntityType>
+            <EntityType Name="ZCDS_UX403_CHART_D_15Type" sap:semantics="aggregate" sap:label="UX403 add chart in object page – data" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SalesOrder" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SalesOrderItem" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Item Position" sap:quickinfo="EPM: Sales Order Item Position"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Product ID" sap:quickinfo="EPM: Product ID"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="GrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:unit="P13C65B606021A804137FE9100E820623" sap:label="Gross Amount" sap:quickinfo="EPM: Total Gross Amount" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC" sap:content-version="1">
+                <End Type="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_15Type" Multiplicity="1" Role="FromRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC"/>
+                <End Type="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_D_15Type" Multiplicity="0..1" Role="ToRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC"/>
+            </Association>
+            <EntityContainer Name="ZCDS_UX403_CHART_15_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDS_UX403_CHART_15" EntityType="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_15Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_UX403_CHART_D_15" EntityType="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_D_15Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC" Association="ZCDS_UX403_CHART_15_CDS.assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_UX403_CHART_15" Role="FromRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC"/>
+                    <End EntitySet="ZCDS_UX403_CHART_D_15" Role="ToRole_assoc_BDAF7C2F7DAED515FA8DF39BF7B4C8DC"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_15_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_UX403_CHART_15_CDS.ZCDS_UX403_CHART_15_CDS_Entities/ZCDS_UX403_CHART_D_15" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>GrossAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://s4d.virtual:8000/sap/opu/odata/sap/ZCDS_UX403_CHART_15_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://s4d.virtual:8000/sap/opu/odata/sap/ZCDS_UX403_CHART_15_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

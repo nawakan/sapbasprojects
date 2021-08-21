@@ -1,0 +1,34 @@
+<mvc:View
+    controllerName="ux40215ex2.controller.Carrier"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page title="{i18n>overviewPageTitle}" >
+    
+        <Table id="idCarrierTable"
+            inset="false"
+            items="{/CarrierCollection}">
+            <columns>
+                <Column minScreenWidth="Tablet" demandPopin="true">
+                    <Text text="{i18n>columnId}" />
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true">
+                    <Text text="{i18n>columnName}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press="onPress">
+                    <cells>
+                        <ObjectIdentifier
+                            title="{AirLineID}"/>
+                        <Text
+                            text="{AirLineName}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+    </Page>
+
+</mvc:View>

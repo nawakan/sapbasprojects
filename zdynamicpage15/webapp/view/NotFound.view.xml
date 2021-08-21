@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="zdynamicpage15.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+	<MessagePage title="{i18n>notFoundMessageTitle}"
+    text="{i18n>notFoundMessageText}"
+    description="{i18n>notFoundMessageDescription}"
+    showNavButton="true"
+    navButtonPress="onNavBack" />
+</mvc:View>

@@ -1,0 +1,21 @@
+{
+  "componentname": "zdynamicpage15",
+  "safeMode": false,
+  "appvariant": "zux410_dynamicpage15extension",
+  "layer": "CUSTOMER_BASE",
+  "sourceSystem": "S4D_100",
+  "isOVPApp": false,
+  "isFioriElement": false,
+  "environment": "ABAP",
+  "destinations": [
+    {
+      "name": "S4D_100",
+      "url": "http://s4d.virtual:8000",
+      "proxyType": "OnPremise"
+    },
+    {
+      "name": "sapui5",
+      "url": "http://sapui5.hana.ondemand.com/1.78.13"
+    }
+  ]
+}

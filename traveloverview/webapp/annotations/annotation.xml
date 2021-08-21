@@ -1,0 +1,73 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZUI_FE_BOOKING_000108_O2/$metadata">
+        <edmx:Include Namespace="cds_zfe_booking_analytics_000108"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="sap.fe.demo">
+            <Annotations Target="cds_zfe_booking_analytics_000108.BookingType">
+                <!-- Begin of Selection หลักด้านบนสุด จะทำการกรองเฉพาะ odata ของ file annotation นี้ -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>CarrierID</PropertyPath>
+                        <PropertyPath>BookingDate</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <!-- End of Selection หลักด้านบนสุด จะทำการกรองเฉพาะ odata ของ file annotation นี้ -->
+                <!-- Begin of chart card ใช้ anno เหมือน chart ปกติ -->
+                <Annotation Term="UI.Chart" Qualifier="FlightPriceColumn">
+                    <Record>
+                        <PropertyValue Property="Title" String="Daily Flight Cost"/>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="FlightPrice"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="FlightDate"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+                        <PropertyValue Property="Description" String="Daily Flight Cost Description"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="PVFlightPriceColumn">
+                    <Record>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#FlightPriceColumn</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="DPFlightPriceColumn">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Value" Path="FlightPrice"/>
+                        <PropertyValue Property="Title" String="Flight Price"/>
+                        <PropertyValue Property="Description" String="Flight Price Decription"/>
+                    </Record>
+                </Annotation>
+                <!-- Begin of Navigation -->
+                <Annotation Term="UI.Identification" Qualifier="ToBookingAnalysis">
+                    <Collection>
+                        <Record Type="UI.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="SemanticObject" String="Booking"/>
+                            <PropertyValue Property="Action" String="analysis"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- End of Navigation -->
+                <!-- End of chart card -->
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,35 @@
+{
+  "level": "error",
+  "message": "Ato Failure",
+  "responseError.response.data": "<?xml version=\"1.0\" encoding=\"utf-8\"?><exc:exception xmlns:exc=\"http://www.sap.com/abapxml/types/communicationframework\"><namespace id=\"com.sap.adt\"/><type id=\"ExceptionResourceNotFound\"/><message lang=\"EN\">Resource  /sap/bc/adt/ato/settings does not exist.</message><localizedMessage lang=\"EN\">Resource  /sap/bc/adt/ato/settings does not exist.</localizedMessage><properties/></exc:exception>",
+  "time": "2021-08-16 04:22:11.646Z"
+}
+{
+  "level": "error",
+  "message": "Deploy Failure Encountered",
+  "responseError.response.data": {
+    "error": {
+      "code": "/IWFND/MED/170",
+      "innererror": {
+        "Error_Resolution": {
+          "SAP_Note": "See SAP Note 1797736 for error analysis (https://service.sap.com/sap/support/notes/1797736)",
+          "SAP_Transaction": "Run transaction /IWFND/ERROR_LOG on SAP Gateway hub system and search for entries with the timestamp above for more details"
+        },
+        "application": {
+          "component_id": "",
+          "service_id": "ABAP_REPOSITORY_SRV",
+          "service_namespace": "/UI5/",
+          "service_version": "0001"
+        },
+        "errordetails": [],
+        "timestamp": "20210816042301.7099100",
+        "transactionid": "9FB227D535E000B0E006116C0BA2BBC9"
+      },
+      "message": {
+        "lang": "en",
+        "value": "No service found for namespace /UI5/, name ABAP_REPOSITORY_SRV, version 0001"
+      }
+    }
+  },
+  "time": "2021-08-16 04:23:01.738Z"
+}

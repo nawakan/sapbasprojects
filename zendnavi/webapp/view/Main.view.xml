@@ -1,0 +1,23 @@
+<mvc:View
+    controllerName="zendnavi.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+                        <layout:VerticalLayout>
+                            <layout:content>
+                                <Label id="idinfo" text="Hello World"/>
+                            </layout:content>
+                        </layout:VerticalLayout>
+                    </content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

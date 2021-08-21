@@ -1,0 +1,10 @@
+<mvc:View
+    controllerName="ux402masterdetail.controller.DetailObjectNotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+   <MessagePage title="{i18n>detailTitle}"
+    text="{i18n>noObjectFoundText}"
+    showNavButton="{device>/system/phone}"
+    navButtonPress="onNavBack"></MessagePage>
+</mvc:View>

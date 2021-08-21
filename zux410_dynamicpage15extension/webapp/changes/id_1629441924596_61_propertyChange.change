@@ -1,0 +1,41 @@
+{
+	"fileName": "id_1629441924596_61_propertyChange",
+	"fileType": "change",
+	"changeType": "propertyChange",
+	"moduleName": "",
+	"reference": "customer.zux410_dynamicpage15extension",
+	"packageName": "$TMP",
+	"content": {
+		"property": "visible",
+		"newValue": false
+	},
+	"selector": {
+		"id": "carrier--idCarrierDetails",
+		"type": "sap.m.FlexBox",
+		"idIsLocal": true
+	},
+	"layer": "CUSTOMER_BASE",
+	"texts": {},
+	"namespace": "apps/zdynamicpage15/changes/",
+	"projectId": "customer.zux410_dynamicpage15extension",
+	"creation": "2021-08-20T06:45:25.368Z",
+	"originalLanguage": "EN",
+	"support": {
+		"generator": "Change.createInitialFileContent",
+		"service": "",
+		"user": "",
+		"sapui5Version": "1.78.11",
+		"sourceChangeFileName": "",
+		"compositeCommand": ""
+	},
+	"oDataInformation": {},
+	"dependentSelector": {},
+	"validAppVersions": {
+		"creation": "1.0.0",
+		"from": "1.0.0",
+		"to": "1.0.0"
+	},
+	"jsOnly": false,
+	"variantReference": "",
+	"appDescriptorChange": false
+}

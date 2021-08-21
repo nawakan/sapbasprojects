@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Adaptation Project Preview</title>
+
+	<style>
+		/* hide variant management popover footer */
+		.sapUiFlVarMngmtPopover .sapMPageWithFooter>section { bottom: 0 !important; }
+		.sapUiFlVarMngmtPopover .sapMPageFooter { display: none !important; }
+	</style>
+	
+	<script type="text/javascript">
+		window["sap-ushell-config"] = {
+			defaultRenderer : "fiori2",
+			renderers: {
+				fiori2: {
+					componentData: {
+						config: {
+							appState: "headerless",
+							rootIntent: "adaptationproject-display"
+						}
+					}
+				}
+			},
+			applications: {
+				"adaptationproject-display": {
+					title: "Adaptation Project Preview",
+					additionalInformation: "SAPUI5.Component=zdynamicpage15",
+					applicationType: "URL",
+					applicationDependencies: {"name":"zdynamicpage15","url":"/sap/bc/ui5_ui5/sap/zux410_app15/~DBEDC95EEFB39D30E7D590876D012532~5","manifest":{"_version":"1.32.0","sap.app":{"id":"customer.zux410_dynamicpage15extension","type":"application","i18n":"i18n/i18n.properties","applicationVersion":{"version":"1.0.0"},"title":"zux410_dynamicpage15extension","description":"A Simple Dynamic Page App","resources":"resources.json","ach":"ach","dataSources":{"mainService":{"uri":"/sap/opu/odata/sap/UX_TRAVEL_SRV","type":"OData","settings":{"odataVersion":"2.0","annotations":["mainService_Annotation"],"localUri":"localService/metadata.xml"}},"mainService_Annotation":{"uri":"/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='UX_TRAVEL_ANNO_MDL',Version='0001')/$value/","type":"ODataAnnotation","settings":{"localUri":"localService/mainService_Annotation.xml"}}}},"sap.ui":{"technology":"UI5","icons":{"icon":"sap-icon://task","favIcon":"","phone":"","phone@2":"","tablet":"","tablet@2":""},"deviceTypes":{"desktop":true,"tablet":true,"phone":true}},"sap.ui5":{"flexEnabled":true,"rootView":{"viewName":"zdynamicpage15.view.App","type":"XML","async":true,"id":"App"},"dependencies":{"minUI5Version":"1.66.0","libs":{"sap.ui.core":{},"sap.m":{},"sap.ui.layout":{}}},"contentDensities":{"compact":true,"cozy":true},"models":{"i18n":{"type":"sap.ui.model.resource.ResourceModel","settings":{"bundleName":"zdynamicpage15.i18n.i18n","enhanceWith":[{"bundleUrl":"i18n/i18n.properties","bundleUrlRelativeTo":"manifest"}]}},"":{"dataSource":"mainService","preload":true},"mainService":{"dataSource":"mainService","preload":true,"settings":{"defaultCountMode":"Inline"}}},"resources":{"css":[{"uri":"css/style.css"}]},"routing":{"config":{"routerClass":"sap.m.routing.Router","viewType":"XML","async":true,"viewPath":"zdynamicpage15.view","controlAggregation":"beginColumnPages","controlId":"idFlexLayout","clearControlAggregation":true,"bypassed":{"target":[{"name":"NotFound"}]}},"routes":[{"name":"Overview","pattern":"","target":["Overview"]},{"name":"Carrier","pattern":"carriers/{carrierId}","target":["Carrier"]}],"targets":{"Overview":{"viewType":"XML","viewName":"Overview","viewLevel":1},"Carrier":{"viewType":"XML","viewName":"Carrier","viewLevel":2,"viewId":"carrier","controlAggregation":"midColumnPages"},"NotFound":{"viewType":"XML","viewName":"NotFound","controlAggregation":"midColumnPages"}}},"componentName":"zdynamicpage15","appVariantId":"customer.zux410_dynamicpage15extension","appVariantIdHierarchy":[{"appVariantId":"zdynamicpage15.Component","layer":"VENDOR","version":"1.0.0"}]},"sap.platform.abap":{"uri":"/sap/bc/ui5_ui5/sap/zux410_app15"}},"self":{"name":"zdynamicpage15","url":"/sap/bc/ui5_ui5/sap/zux410_app15/~DBEDC95EEFB39D30E7D590876D012532~5"},"asyncHints":{"libs":[{"name":"sap.ui.layout"},{"name":"sap.m"},{"name":"sap.ui.core"}],"cacheTokens":{"dataSources":{"/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='UX_TRAVEL_ANNO_MDL',Version='0001')/$value/":"20200908095843","/sap/opu/odata/sap/UX_TRAVEL_SRV":"20200908095843"}},"requests":[{"name":"sap.ui.fl.changes","reference":"zdynamicpage15.Component"}]},"altManifestUrl":"webapp/manifest.appdescr_variant","componentData":{"startupParameters":{"sap-ui-fl-max-layer":["CUSTOMER_BASE"]}}}
+				}
+			}
+		};
+	</script>
+
+	<script src="../../test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+
+	<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.ushell, sap.ui.rta"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-xx-bindingSyntax="complex"
+			data-sap-ui-xx-rootComponentNode="content"
+			data-sap-ui-xx-designMode="true"
+			data-sap-ui-flexibilityServices='[{"connector": "LrepConnector", "layers": [], "url": "/sap/bc/lrep"},{"applyConnector": "WorkspaceApplyConnector", "writeConnector": "WorkspaceWriteConnector", "custom": true, "layers": ["CUSTOMER_BASE"]}]'
+			data-sap-ui-xx-suppressDeactivationOfControllerCode="true">
+	</script>
+
+	<script type="text/javascript">
+		sap.ui.getCore().attachInit(function() {
+			sap.ushell.Container.createRenderer().placeAt("content");
+		});
+	</script>
+
+	<script src="https://workspaces-ws-jzfhc-theia.eu10.trial.applicationstudio.cloud.sap/watt/1.1000.15/webapp/resources/sap/watt/lib/lodash/lodash.js" type="text/javascript"></script>
+	<script src="https://workspaces-ws-jzfhc-theia.eu10.trial.applicationstudio.cloud.sap/watt/features/ui5-visual-editor/0.0.10/sap.watt.saptoolsets.fiori.project.uiadaptationfeature/client/v1.0.96_1629190671233/src/uiadaptation/util/UIAdaptationTransceiver.js" type="text/javascript"></script>
+	<script src="https://workspaces-ws-jzfhc-theia.eu10.trial.applicationstudio.cloud.sap/watt/features/ui5-visual-editor/0.0.10/sap.watt.saptoolsets.fiori.project.uiadaptationfeature/client/v1.0.96_1629190671233/src/uiadaptation/util/AppVariantPreviewHelper.js" type="text/javascript"></script>
+
+</head>
+
+<body class="sapUiBody" id="content" role="application">
+</body>
+
+</html>

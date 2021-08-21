@@ -1,0 +1,108 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:table="sap.ui.table"
+    controllerName="zux410viz15.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:viz="sap.viz.ui5.controls"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<f:DynamicPage id="dynamicPageId"
+                headerExpanded="true" toggleHeaderOnTitleClick="true">
+					<f:title>
+                        <f:DynamicPageTitle>
+                            <f:heading>
+                                <Title text="{i18n>pageTitle}"></Title>
+                            </f:heading>
+                        </f:DynamicPageTitle>
+                    </f:title>
+                    <f:content>
+
+                        <suite:ChartContainer autoAdjustHeight="true"
+                        contentChange="onContentChange"
+                        id="idChartContainer"
+                        showFullScreen="true"
+                        showLegend="true"
+                        showPersonalization="false"
+                        title="{i18n>diagramTitle}">
+                            <suite:content>
+                                <suite:ChartContainerContent icon="sap-icon://line-chart"
+                                title="{i18n>lineChartDiagram}">
+                                    <suite:content>
+                                        <viz:Popover id="idLineChartPopover"/>
+                                        <viz:VizFrame id="idLineChartVizFrame"                                       
+                                        height="9.1rem" width="100%"
+                                        uiConfig="{applicationSet:'fiori'}"/>
+                                    </suite:content>
+                                </suite:ChartContainerContent>
+
+                                <suite:ChartContainerContent icon="sap-icon://vertical-bar-chart"
+                                title="{i18n>barChartTitle}">
+                                    <suite:content>
+                                        <viz:VizFrame id="idBarChartVizFrame"                                       
+                                        height="9.1rem" width="100%"
+                                        uiConfig="{applicationSet:'fiori'}"/>
+                                    </suite:content>
+                                </suite:ChartContainerContent>
+
+                                <suite:ChartContainerContent icon="sap-icon://table-chart"
+                                title="{i18n>tableTitle}">
+                                    <suite:content>
+                                        <Table id="idTable" items="{SalesModel>/}">
+                                            <headerToolbar>
+                                                <OverflowToolbar>
+                                                    <content>
+                                                        <Title text="{i18n>tableHeader}" level="H2"/>
+                                                    </content>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <columns>
+                                                <Column>
+                                                    <Label text="Region" textAlign="Right"/>
+                                                </Column>
+                                                <Column>
+                                                    <Label text="Sub Region" textAlign="Left"/>
+                                                </Column>
+                                                <Column>
+                                                    <Label text="Product Name"/>
+                                                </Column>
+                                                <Column>
+                                                    <Label text="Sales Amount"/>
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem >
+                                                    <cells>
+                                                        <Label text="{SalesModel>REGION_NAME}"/>
+                                                        <Label text="{SalesModel>SUB_REGION_NAME}" textAlign="Left"/>
+                                                        <Label text="{SalesModel>PRODUCT_NAME}" textAlign="Right"/>
+                                                        <Label text="{SalesModel>SALES_AMOUNT}" textAlign="Center"/>
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </suite:content>
+                                </suite:ChartContainerContent>
+
+                            </suite:content>
+
+                            <suite:dimensionSelectors>
+                                <Select id="idDimSelector" visible="true" change="onChange" autoAdjustWidth="true" >
+                                    <items>
+                                        <core:Item key="0" text="{i18n>perProduct}"/>
+                                        <core:Item key="1" text="{i18n>perRegion}"/>
+                                        <core:Item key="2" text="{i18n>perProdReg}"/>
+                                    </items>
+                                </Select>
+                            </suite:dimensionSelectors>
+
+                        </suite:ChartContainer>
+                    </f:content>
+				</f:DynamicPage>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

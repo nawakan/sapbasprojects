@@ -1,0 +1,83 @@
+<mvc:View
+    controllerName="ux40215ex2.controller.Flights"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:custom="ux40215ex2.control"
+>
+    <Page title="{Carrname}" navButtonPress="onNavBack" showNavButton="true">
+        <content>
+
+            <layout:VerticalLayout>
+
+                <ObjectHeader title="{AirLineName}"
+                numberUnit="{LocalCurrencyCode}"
+                titleHref="{URL}">
+                    <ObjectAttribute text="{AirLineID}"/>
+                    <ObjectAttribute text="{URL}"/>
+                </ObjectHeader>
+
+            </layout:VerticalLayout>
+
+            <Table id="idFlights"
+                mode="SingleSelectMaster"
+                growing="true"
+                growingThreshold="10"
+                items="{
+                            path: 'CarrierFlights',
+                            sorter: {
+                                path: 'AirLineID'
+                            }
+                        }">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Flights" level="H2"></Title>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="12em">
+                        <Text text="{i18n>carriername}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>flightno}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>flightdate}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>seatmax}" />
+                    </Column>
+                    <Column hAlign="Right">
+                        <Text text="{i18n>seatoc}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="{i18n>planeInfo}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="{i18n>bookaction}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{AirLineID}" text="{AirLineID}"/>
+                            <Text text="{FlightConnectionID}" />
+                            <Text text="{ path:'FlightDate', type:'sap.ui.model.type.Date' }" />
+                            <Text text="{EconomyClassMaximumSeats}" />
+                            <Text text="{EconomyClassOccupiedSeats}" />
+                            <custom:PlaneInfo planeType="{AirCraftType}"
+                            seatsMax="{EconomyClassMaximumSeats}"
+                            seatsOcc="{EconomyClassOccupiedSeats}" />
+                            <custom:HoverButton text="{i18n>bookaction}"
+                            allowHover="true" 
+                            hover="onHover"
+                            hoverText="{=${EconomyClassMaximumSeats} - ${EconomyClassOccupiedSeats}}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+</mvc:View>

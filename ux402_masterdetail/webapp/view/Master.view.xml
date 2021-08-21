@@ -1,0 +1,26 @@
+<mvc:View
+    controllerName="ux402masterdetail.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage title="{i18n>masterTitle}">
+        <semantic:content>
+            <List id="list" items="{/CarrierCollection}"
+            busyIndicatorDelay="0"
+            growing="true"
+            growingThreshold="10"
+            growingScrollToLoad="true"
+            mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+            selectionChange="onSelect">
+                <items>
+                    <ObjectListItem title="{AirLineName}"
+                    intro="{AirLineID}" 
+                    type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}"
+                    press="onSelect">
+                    </ObjectListItem>
+                </items>
+            </List>
+        </semantic:content>
+    </semantic:MasterPage>
+</mvc:View>

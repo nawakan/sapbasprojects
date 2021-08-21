@@ -1,0 +1,183 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata4/sap/zui_fe_travel_000108_o4/srvd/sap/zui_fe_travel_000108_o4/0001/$metadata">
+        <edmx:Include Namespace="com.sap.gateway.srvd.zfe_travel_000108.v0001" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local1">
+            <!-- Begin of เพิ่ม TravelID ท้าย Description -->
+            <Annotations Target="SAP.TravelType/Description">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TravelID">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
+                </Annotation>
+            </Annotations>
+            <!-- End of เพิ่ม TravelID ท้าย Description -->
+            <Annotations Target="SAP.TravelType">
+                <!-- Begin of Card Travel แสดงแบบ List และมี Dropdown filter ตาม status -->
+                <!-- Begin of กำหนดการแสดงสี Criticalเหลือง, Positiveเขียว, Negativeแดง ที่ฟิล BeginDate -->
+                <Annotation Term="UI.DataPoint" Qualifier="DPTravelBeginDateOpenInProcess">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Critical"/>
+                        <PropertyValue Property="Value" Path="BeginDate"/>
+                        <PropertyValue Property="Title" String="Open/in Process Travels"/>
+                        <PropertyValue Property="Description" String="Open/in Process Travels Description"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="DPTravelBeginDateAccepted">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
+                        <PropertyValue Property="Value" Path="BeginDate"/>
+                        <PropertyValue Property="Title" String="Accept Travels"/>
+                        <PropertyValue Property="Description" String="Accept Travels Description"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="DPTravelBeginDateRejected">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Negative"/>
+                        <PropertyValue Property="Value" Path="BeginDate"/>
+                        <PropertyValue Property="Title" String="Reject Travels"/>
+                        <PropertyValue Property="Description" String="Reject Travels Description"/>
+                    </Record>
+                </Annotation>
+                <!-- End of กำหนดการแสดงสี Criticalเหลือง, Positiveเขียว, Negativeแดง ที่ฟิล BeginDate -->
+                <!-- Begin of กำหนดการแสดง List โดยแยกการแสดงตามการ filter ใน dropdown ในที่นี้คือ 3 status สำหรับทำ view switch ใน card เดียว -->
+                <Annotation Term="UI.LineItem" Qualifier="LIOpenInProcessTravels">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                            <PropertyValue Property="Label" String="Travel"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LastName"/>
+                            <PropertyValue Property="Label" String="Customer"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#DPTravelBeginDateOpenInProcess"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LIAcceptedTravels">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                            <PropertyValue Property="Label" String="Travels"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LastName"/>
+                            <PropertyValue Property="Label" String="Customer"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#DPTravelBeginDateAccepted"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LIRejectedTravels">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                            <PropertyValue Property="Label" String="Travels"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LastName"/>
+                            <PropertyValue Property="Label" String="Customer"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#DPTravelBeginDateRejected"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- End of กำหนดการแสดง List โดยแยกการแสดงตามการ filter ใน dropdown ในที่นี้คือ 3 status สำหรับทำ view switch ใน card เดียว -->
+                <!-- Begin of กำหนด data ที่ใช้ในการแสดงผลแต่ละแบบทั้ง 3 status ซึ่ง selection variant จะถูก map กับ list maifest.json -->
+                <Annotation Term="UI.SelectionVariant" Qualifier="OpenInProcessSelection">
+                    <Record Type="UI.SelectionVariantType">
+                        <PropertyValue Property="SelectOptions">
+                            <Collection>
+                                <Record Type="UI.SelectOptionType">
+                                    <PropertyValue Property="PropertyName" PropertyPath="StatusText"/>
+                                    <PropertyValue Property="Ranges">
+                                        <Collection>
+                                            <Record Type="UI.SelectionRangeType">
+                                                <PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+                                                <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+                                                <PropertyValue Property="Low" String="Open"/>
+                                            </Record>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.SelectOptionType">
+                                    <PropertyValue Property="PropertyName" PropertyPath="StatusText"/>
+                                    <PropertyValue Property="Ranges">
+                                        <Collection>
+                                            <Record Type="UI.SelectionRangeType">
+                                                <PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+                                                <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+                                                <PropertyValue Property="Low" String="In Progress"/>
+                                            </Record>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- End of กำหนด data ที่ใช้ในการแสดงผลแต่ละแบบทั้ง 3 status ซึ่ง selection variant จะถูก map กับ list maifest.json -->
+                <Annotation Term="UI.SelectionVariant" Qualifier="AcceptedSelection">
+                    <Record>
+                        <PropertyValue Property="SelectOptions">
+                            <Collection>
+                                <Record Type="UI.SelectOptionType">
+                                    <PropertyValue Property="PropertyName" PropertyPath="StatusText"/>
+                                    <PropertyValue Property="Ranges">
+                                        <Collection>
+                                            <Record Type="UI.SelectionRangeType">
+                                                <PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+                                                <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+                                                <PropertyValue Property="Low" String="Accepted"/>
+                                            </Record>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionVariant" Qualifier="RejectedSelection">
+                    <Record>
+                        <PropertyValue Property="SelectOptions">
+                            <Collection>
+                                <Record Type="UI.SelectOptionType">
+                                    <PropertyValue Property="PropertyName" PropertyPath="StatusText"/>
+                                    <PropertyValue Property="Ranges">
+                                        <Collection>
+                                            <Record Type="UI.SelectionRangeType">
+                                                <PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+                                                <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+                                                <PropertyValue Property="Low" String="Rejected"/>
+                                            </Record>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- Begin of Navigation -->
+                <Annotation Term="UI.Identification" Qualifier="ToTravelManage">
+                    <Collection>
+                        <Record Type="UI.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="SemanticObject" String="Travel"/>
+                            <PropertyValue Property="Action" String="manage"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- End of Navigation -->
+                <!-- End of Card Travel แสดงแบบ List และมี Dropdown filter ตาม status -->
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

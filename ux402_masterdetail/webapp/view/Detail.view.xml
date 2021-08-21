@@ -1,0 +1,51 @@
+<mvc:View
+    controllerName="ux402masterdetail.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:semantic="sap.m.semantic">
+	<semantic:DetailPage navButtonPress="onNavBack"
+    showNavButton="true"
+    title="{i18n>detailTitle}">
+        <semantic:content>
+            <ObjectHeader>
+                <ObjectAttribute text="{LocalCurrencyCode}"
+                title="{i18n>currencyTitle}"/>
+                <ObjectAttribute text="{URL}"
+                title="{i18n>urlTitle}"/>
+            </ObjectHeader>
+            <IconTabBar class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter icon="sap-icon://flight">
+                        <content>
+                            <Table items="{CarrierFlights}"
+                            headerText="{i18n>tableHeaderText}"
+                            noDataText="{i18n>tableNoDataText}">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>idColumnText}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>cityFromColumnText}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>cityToColumnText}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{AirLineID}"/>
+                                            <Text text="{Flights/DepartureCity}"/>
+                                            <Text text="{Flights/DestinationCity}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </semantic:content>
+    </semantic:DetailPage>
+</mvc:View>

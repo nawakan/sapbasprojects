@@ -1,0 +1,255 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZUI_FE_BOOKING_000108_O2/$metadata">
+        <edmx:Include Namespace="cds_zfe_booking_analytics_000108"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="sap.fe.demo">
+            <!-- Begin of Main Chart + List Table -->
+            <Annotations Target="cds_zfe_booking_analytics_000108.BookingType">
+                <!-- Begin of List Table -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BookingID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BookingID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="AgencyID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="AgencyName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BookingDate"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BookingDateYear"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BookingUUID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CarrierID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CarrierName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- End of List Table -->
+                <!-- Begin of Chart -->
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="Booking FlightPrice By Carrierid"/>
+                        <PropertyValue Property="Description" String="Booking FlightPrice By Carrierid"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+                        <!-- ดูข้อมูล By dimension -->
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>CarrierID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!-- วัดแต่ละ dimenstion ด้วย measure -->
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>FlightPrice</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- Variant เพิ่มเติมของกราฟ -->
+                <Annotation Term="UI.PresentationVariant">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="Text" String="Default"/>
+                        <!-- การ sort -->
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="FlightPrice"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <!-- การแสดง grand total -->
+                        <PropertyValue Property="IncludeGrandTotal" Bool="false"/>
+                        <PropertyValue Property="InitialExpansionLevel" Int="NaN"/>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.LineItem</AnnotationPath>
+                                <AnnotationPath>@UI.Chart</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- End of Chart -->
+                <!-- Begin of Compact Filter (filter แบบกล่องเหลี่ยมๆทั่วๆไป) -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>CurrencyCode</PropertyPath>
+                        <PropertyPath>AgencyID</PropertyPath>
+                        <PropertyPath>AgencyName</PropertyPath>
+                        <PropertyPath>CarrierID</PropertyPath>
+                        <PropertyPath>CarrierName</PropertyPath>
+                        <PropertyPath>CustomerID</PropertyPath>
+                        <PropertyPath>CustomerName</PropertyPath>
+                        <PropertyPath>BookingDate</PropertyPath>
+                        <PropertyPath>BookingDateYear</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <!-- End of Compact Filter (filter แบบกล่องเหลี่ยมๆทั่วๆไป) -->
+                <!-- Begin of Visual Filter (filter แบบแสดงเป็นกราฟ ใช้ anno เหมือน main) -->
+                <Annotation Term="UI.Chart" Qualifier="FilterFlightPriceBookingDateYear">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="FlightPrice By BookingDateYear"/>
+                        <PropertyValue Property="Description" String="REPLACE_WITH_CHART_DESCRIPTION"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>BookingDateYear</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>FlightPrice</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="PVFlightPriceBookingDateYear">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#FilterFlightPriceBookingDateYear</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="FlightPriceByAgencyID">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="Flight Price by Agency ID"/>
+                        <PropertyValue Property="Description" String="Flight Price by Agency ID"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bar"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>AgencyID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>FlightPrice</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="PVFlightPriceByAgencyID">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#FlightPriceByAgencyID</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="FlightPriceByCustomerID">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="FlightPrice by Customer ID"/>
+                        <PropertyValue Property="Description" String="FlightPrice by Customer ID"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>CustomerID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>FlightPrice</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="PVFlightPriceByCustomerID">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#FlightPriceByCustomerID</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- End of Visual Filter (filter แบบแสดงเป็นกราฟ ใช้ anno เหมือน main) -->
+            </Annotations>
+            <!-- End of Main Chart + List Table -->
+            <!-- Begin of Common ValueList สำหรับกำหนดการ filter ระหว่าง visual filter กับ main chart -->
+            <Annotations Target="cds_zfe_booking_analytics_000108.BookingType/BookingDateYear">
+                
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Booking"/>
+                        <PropertyValue Property="PresentationVariantQualifier" String="PVFlightPriceBookingDateYear"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut"> 
+                                    <!-- ค่าที่ใช้ในการ filter -->
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BookingDateYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="BookingDateYear"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- Default value for filter -->
+                <Annotation Term="Common.FilterDefaultValue" String="2021"/>
+            </Annotations>
+            <Annotations Target="cds_zfe_booking_analytics_000108.BookingType/AgencyID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Booking"/>
+                        <PropertyValue Property="PresentationVariantQualifier" String="PVFlightPriceByAgencyID"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AgencyID"/>
+                                    <PropertyValue Property="ValueListProperty" String="AgencyID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zfe_booking_analytics_000108.BookingType/CustomerID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Booking"/>
+                        <PropertyValue Property="PresentationVariantQualifier" String="PVFlightPriceByCustomerID"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CustomerID"/>
+                                    <PropertyValue Property="ValueListProperty" String="CustomerID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <!-- End of Common ValueList สำหรับกำหนดการ filter ระหว่าง visual filter กับ main chart -->
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

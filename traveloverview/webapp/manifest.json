@@ -1,0 +1,213 @@
+{
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "sap.fe.demo.traveloverview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "tags": {
+            "keywords": []
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZUI_FE_BOOKING_000108_O2/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZUI_FE_BOOKING_000108_O2_VAN",
+                        "annotation"
+                    ],
+                    "localUri": "localService/mainService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "ZUI_FE_BOOKING_000108_O2_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZUI_FE_BOOKING_000108_O2_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/mainService/ZUI_FE_BOOKING_000108_O2_VAN.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            },
+            "zui_fe_travel_000108_o4": {
+                "uri": "/sap/opu/odata4/sap/zui_fe_travel_000108_o4/srvd/sap/zui_fe_travel_000108_o4/0001/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "annotations": [
+                        "annotation0"
+                    ],
+                    "localUri": "localService/zui_fe_travel_000108_o4/metadata.xml"
+                }
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation0.xml",
+                "settings": {
+                    "localUri": "annotations/annotation0.xml"
+                }
+            }
+        },
+        "offline": false,
+        "sourceTemplate": {
+            "id": "OVP.smartovptemplate",
+            "version": "1.41.1"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "sap-fe-demo-traveloverview-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Travel",
+                    "action": "overview",
+                    "title": "Travel Overview",
+                    "subTitle": "",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.65.0",
+            "libs": {
+                "sap.ovp": {}
+            },
+            "components": {}
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties",
+                "preload": false
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "mainService": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultCountMode": "Inline"
+                }
+            },
+            "zui_fe_travel_000108_o4": {
+                "dataSource": "zui_fe_travel_000108_o4",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "extends": {
+            "extensions": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainService",
+        "globalFilterEntityType": "BookingType",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": false,
+        "cards": {
+            "card01": {
+                "model": "mainService",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "title": "Spending on Flights",
+                    "entitySet": "Booking",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#DPFlightPriceColumn",
+                    "valueSelectionInfo": "Total Spending on Flights",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#PVFlightPriceColumn",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#FlightPriceColumn",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ToBookingAnalysis"
+                }
+            },
+            "card02": {
+                "model": "zui_fe_travel_000108_o4",
+                "template": "sap.ovp.cards.v4.table",
+                "settings": {
+                    "title": "Travel List",
+                    "entitySet": "Travel",
+                    "sortOrder": "ascending",
+                    "sortBy": "BeginDate",
+                    "tabs": [
+                        {
+                            "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#LIOpenInProcessTravels",
+                            "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#OpenInProcessSelection",
+                            "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ToTravelManage",
+                            "value": "Open/In Process"
+                        },
+                        {
+                            "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#LIAcceptedTravels",
+                            "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#AcceptedSelection",
+                            "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ToTravelManage",
+                            "value": "Accepted"
+                        },
+                        {
+                            "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#LIRejectedTravels",
+                            "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#RejectedSelection",
+                            "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ToTravelManage",
+                            "value": "Rejected"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "sap.ui.generic.app": {
+        "settings": {}
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "sap-fe-demo-traveloverview"
+    }
+}

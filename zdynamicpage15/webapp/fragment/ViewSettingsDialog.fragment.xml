@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog id="viewSettingsDialog" confirm="onConfirmViewSettingsDialog">
+        <sortItems>
+            <ViewSettingsItem text="filterCarId" key="Carrid"/>
+            <ViewSettingsItem text="filterCarname" key="Carrname"/>
+        </sortItems>
+        <groupItems>
+            <ViewSettingsItem text="filterCarId" key="Carrid"/>
+            <ViewSettingsItem text="filterCarname" key="Carrname"/>
+        </groupItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,26 @@
+specVersion: "2.4"
+metadata:
+  name: traveloverview
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        backend:
+          - path: /sap
+            url: https://5422bbff-4781-4b19-8ca9-5f7ac9d4a30b.abap.eu10.hana.ondemand.com
+            scp: true
+            destination: abap-cloud-default_abap-trial-17601623trial-dev
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+          version: null
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp

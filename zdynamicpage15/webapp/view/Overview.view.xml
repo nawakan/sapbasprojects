@@ -1,0 +1,72 @@
+<mvc:View xmlns:simple="sap.gantt.simple" xmlns:tnt="sap.tnt" xmlns:f="sap.f"
+    controllerName="zdynamicpage15.controller.Overview"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+	<f:DynamicPage id="dynamicPageOverviewId" 
+    headerExpanded="true" toggleHeaderOnTitleClick="true">
+        <f:content>
+            <Table items="{/UX_C_Carrier_TP}"
+            mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster' }"
+            selectionChange="onSelectionChange" id="idCarrierList"
+            updateFinished="onUpdateFinished">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="{i18n>overviewPageTitle} ({appView>/count})" level="H2"/>
+                            <ToolbarSpacer />
+                            <SearchField placeholder="{i18n>sfPlaceholder}"
+                            search="onSearch" width="15rem"/>
+                            <OverflowToolbarButton press="onOpenViewSettings" icon="sap-icon://sort"
+                            type="Transparent" tooltip="Sort"/>
+                            <OverflowToolbarButton press="onOpenViewSettings" icon="sap-icon://group-2"
+                            type="Transparent" tooltip="Group"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="{i18n>columnId}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>columnName}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem press="onPress" type="Navigation">
+                        <cells>
+                            <ObjectIdentifier title="{Carrid}"/>
+                            <ObjectIdentifier title="{Carrname}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <f:content>
+                    <fb:FilterBar reset="onReset" search="onSearch" clear="onClear"
+                    cancel="onCancel" filtersDialogClosed="onFiltersDialogClosed"
+                    useToolbar="true" showGoOnFB="true" showRestoreButton="true"
+                    showClearButton="true" id="idFilterBar">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="G1" visibleInFilterBar="true"
+                            groupTitle="carridGroup" name="A" label="filterCarrid">
+                                <fb:control>
+                                    <Input id="idFilterCarrid" liveChange="onFilterChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="G2" visibleInFilterBar="true"
+                            groupTitle="carridGroup" name="B" label="filterCarrname">
+                                <fb:control>
+                                    <Input id="idFilterCarrname" liveChange="onFilterChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+    </f:DynamicPage>
+</mvc:View>
