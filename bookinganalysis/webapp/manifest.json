@@ -133,7 +133,26 @@
             }
         },
         "extends": {
-            "extensions": {}
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage":{
+                        "controllerName": "sap.fe.demo.bookinganalysis.controller.AnalyticalListPageExt",
+                        "sap.ui.generic.app": {
+                            "ZUI_FE_BOOKING_000108_O2_VAN": {
+                                "EntitySet": "Booking",
+                                "Actions": {
+                                    "actionext01":{
+                                        "id": "action01",
+                                        "text": "Display Map",
+                                        "press": "onAction01",
+                                        "filter": "chart"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "contentDensities": {
             "compact": true,
