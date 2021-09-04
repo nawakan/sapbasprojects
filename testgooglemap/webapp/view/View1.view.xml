@@ -1,0 +1,97 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="testgooglemap.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:custom="testgooglemap.control"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="Geomarketing Tycoon">
+					<content>
+                        <VBox class="sapUiResponsiveMargin">  
+                            <HBox>
+                                <Input id='gpsIp' placeholder="Latitude, Longitude" />
+                                <Input id='colorIp' placeholder="Color Area"/>
+                                <Button press="onAddCoordinate" text="Add Coordinate" />
+                                <Button press="onAddArea" text="Add Area" />
+                            </HBox>
+                            <HBox>
+                                <Input id='keywordIp' placeholder="Competitors" />
+                                <Button press="onSearchPlaces" text="Search Competitors" />
+                            </HBox>
+                            <HBox>
+                                <Select id="selectBasedId" change="onSelectBasedChange">
+                                    <items>
+                                        <core:Item text="based on Delayed Delivery Area" key="D" />
+                                        <core:Item text="based on Target Group" key="T" />
+                                    </items>
+                                </Select>
+                                <Button text="Enter" />
+                            </HBox>
+                        </VBox>
+                        <VBox class="sapUiResponsiveMargin" id="dVboxId" visible="true">
+                            <Input id="inpPercentCritical" placeholder="Percent Critical" width="30%" />
+                        </VBox>
+                        <VBox class="sapUiResponsiveMargin" id="tVboxId" visible="false">
+                            <Text text="Selection for finding the Target Group"/>
+                            <Input id="inpPeopleOffice" placeholder="จำนวนลูกค้าที่เหมาะสำหรับการเปิด 1 สาขา" width="30%" />
+                            <Input id="inpTop" placeholder="จำนวนอันดับที่จะนำคนมารวมกัน เพื่อหาพื้นที่เป้าหมาย เช่น เอาอันดับ 1-3 มารวมกันเพื่อเทียบกับช่องบน" />
+                            <Text text="Ranking by"/>
+                            <HBox >
+                                <CheckBox id="chkGendor" selected="false" text="Gendor" />
+                                <CheckBox id="chkAge" selected="true" text="Age" />
+                            </HBox>
+                            <!-- <Button press="findTarget" text="Find Target Group"/> -->
+                        </VBox>
+                        <custom:GoogleMap id="mapId"
+                        address="Chatuchak Park" key="AIzaSyDOqJZjBabVnjDA_2g6b37Bdx3e9QXUj1c"
+                        markers="{salesOffice>/SalesOffices}">
+                            <custom:markers>
+                                <custom:GoogleMapMarker latlngStr = "{salesOffice>latlngStr}" 
+                                title = "{salesOffice>title}"/>
+                                <!-- <custom:GoogleMapMarker latlngStr = '13.826571800264729, 100.56068339659957' />
+                                <custom:GoogleMapMarker latlngStr = '13.670160797538957, 100.63469710113857' />
+                                <custom:GoogleMapMarker latlngStr = '13.746500925568435, 100.53932444792595' />
+                                <custom:GoogleMapMarker latlngStr = '13.877699909074776, 100.4113483' />
+                                <custom:GoogleMapMarker latlngStr = '13.646911999585974, 100.68064265480092' />
+                                <custom:GoogleMapMarker latlngStr = '13.905816936469666, 100.52821123743294' />
+                                <custom:GoogleMapMarker latlngStr = '13.82596555903671, 100.67786683356667' />
+                                <custom:GoogleMapMarker latlngStr = '13.71223770414841, 100.43397334145288' />
+                                <custom:GoogleMapMarker latlngStr = '13.745240533201857, 100.53002732448851' />
+                                <custom:GoogleMapMarker latlngStr = '13.746920539841774, 100.53472549882254' />
+                                <custom:GoogleMapMarker latlngStr = '13.99131159678427, 100.61724873051759' />
+                                <custom:GoogleMapMarker latlngStr = '13.651331738241549, 100.59586055548206' />
+                                <custom:GoogleMapMarker latlngStr = '13.767171087813697, 100.64269165887002' />
+                                <custom:GoogleMapMarker latlngStr = '13.728956026999695, 100.53502939466868' />
+                                <custom:GoogleMapMarker latlngStr = '13.764096843585092, 100.53862595376451' />
+                                <custom:GoogleMapMarker latlngStr = '13.80242261182603, 100.54916210989745' />
+                                <custom:GoogleMapMarker latlngStr = '13.759080664175142, 100.56621299418511' />
+                                <custom:GoogleMapMarker latlngStr = '13.778249938656272, 100.47645860076777' /> -->
+                            </custom:markers>
+                            <custom:circles>
+                                <custom:GoogleMapCircle latlngStr = '13.583894602845016, 100.6091133479156' fillColor='red' />
+                                <custom:GoogleMapCircle latlngStr = '13.813012211209626, 100.44890847855609' fillColor='red' />
+                                <custom:GoogleMapCircle latlngStr = '13.910116236109204, 100.65116362349491' fillColor='red' />
+                                <custom:GoogleMapCircle latlngStr = '13.938812958768066, 100.3927816913605' fillColor='red' />
+                                <custom:GoogleMapCircle latlngStr = '13.720558172242638, 100.4424762774802' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.744502736098696, 100.54065090208498' fillColor='blue' />
+                                <custom:GoogleMapCircle latlngStr = '13.862920594879775, 100.40711893531439' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.903546340405406, 100.52181926926477' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.826669768487392, 100.5623786641296' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.762166746211344, 100.64445512316418' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.673889585989565, 100.61926595918872' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.64790307077217, 100.68323112226139' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.822631037259818, 100.6734812913765' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.990566205650078, 100.60231004249307' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.76727153051621, 100.47066817927568' fillColor='green' />
+                                <custom:GoogleMapCircle latlngStr = '13.774359532916344, 100.58086924577981' fillColor='green' />
+                            </custom:circles>
+                        </custom:GoogleMap>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

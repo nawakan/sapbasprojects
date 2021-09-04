@@ -1,0 +1,94 @@
+_schema-version: "3.2"
+ID: testgooglemap
+description: A Fiori application.
+version: 0.0.1
+modules:
+- name: testgooglemap-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: testgooglemap-dest-srv
+    parameters:
+      content-target: true
+  - name: testgooglemap-repo-host
+    parameters:
+      service-key:
+        name: testgooglemap-repo-host-key
+  - name: testgooglemap-uaa
+    parameters:
+      service-key:
+        name: testgooglemap-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: testgooglemap_repo_host
+          ServiceInstanceName: testgooglemap-html5-srv
+          ServiceKeyName: testgooglemap-repo-host-key
+          sap.cloud.service: testgooglemap
+        - Authentication: OAuth2UserTokenExchange
+          Name: testgooglemap_uaa
+          ServiceInstanceName: testgooglemap-xsuaa-srv
+          ServiceKeyName: testgooglemap-uaa-key
+          sap.cloud.service: testgooglemap
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: testgooglemap-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: testgooglemap-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - testgooglemap.zip
+      name: testgooglemap
+      target-path: resources/
+- name: testgooglemap
+  type: html5
+  path: .
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: testgooglemap-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: testgooglemap-dest-srv
+    service-plan: lite
+- name: testgooglemap-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: testgooglemap-xsuaa-srv
+    service-plan: application
+- name: testgooglemap-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: testgooglemap-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
